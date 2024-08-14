@@ -1,9 +1,14 @@
-from flask import Flask
+from flask import Flask, request, jsonify
+
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():  # put application's code here
-    return 'Hello World!'
+
+@app.route('/api/greet', methods=['GET'])
+def greet():
+    name = request.args.get('name', 'Guest')
+    message = {'message': f'Hello, {name}!'}
+    return jsonify(message)
+
 
 if __name__ == '__main__':
     app.run()
